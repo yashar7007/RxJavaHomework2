@@ -50,7 +50,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:importantForAutofill="no"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColor="#616161"
+                tools:ignore="TextContrastCheck"
+                tools:text="10000" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -59,19 +62,28 @@
             tools:text="[02:37]" />
 
         <Button
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="4dp"
-            android:layout_gravity="bottom"
             android:id="@+id/countdownStartButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start" />
+            android:layout_gravity="bottom"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:text="Start"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+
     </FrameLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#ccc" />
+
+    <EditText
+        android:id="@+id/editTextNumber2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number" />
 
     <FrameLayout
         android:layout_width="match_parent"
