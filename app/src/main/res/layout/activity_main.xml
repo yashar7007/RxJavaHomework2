@@ -78,13 +78,6 @@
         android:layout_height="1dp"
         android:background="#ccc" />
 
-    <EditText
-        android:id="@+id/editTextNumber2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -135,7 +128,9 @@
                 android:id="@+id/stopwatchStartButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Start" />
+                android:editable="true"
+                android:text="Start"
+                tools:ignore="DuplicateSpeakableTextCheck" />
 
             <View
                 android:layout_width="0dp"
@@ -146,6 +141,7 @@
                 android:id="@+id/stopwatchEndButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:editable="true"
                 android:text="Pause" />
         </LinearLayout>
     </FrameLayout>
