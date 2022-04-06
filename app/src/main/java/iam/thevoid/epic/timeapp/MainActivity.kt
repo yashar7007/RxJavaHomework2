@@ -8,10 +8,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.format.DateUtils
 import android.util.Log
-import android.widget.Button
-import android.widget.CalendarView
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.PackageManagerCompat.LOG_TAG
 import com.google.android.material.textfield.TextInputEditText
@@ -109,15 +106,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         countdownStartButton.setOnClickListener {
-            disposeCountdown()
-            var total_time: Long = countdownSecondsEditText.text.toString().toLong()
-            timer(total_time)
-            disposableCountdownTimer = timer(total_time)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { it ->
-                    countdownText.text = it
-                }
+            try {
+                disposeCountdown()
+                var total_time: Long = countdownSecondsEditText.text.toString().toLong()
+                timer(total_time)
+                disposableCountdownTimer = timer(total_time)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { it ->
+                        countdownText.text = it
+                    }
+            }catch(e:Exception) {
+                    android.widget.Toast.makeText(this, "Введите значение в секундах", android.widget.Toast.LENGTH_LONG).show()
+
+            }
         }
 
 //секундомер
@@ -221,15 +223,17 @@ class MainActivity : AppCompatActivity() {
     var DisposibleTimer: Disposable? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun timer(total_time: Long): @NonNull Observable<String> {
-        fun countdownTime(total_time: Long, t: Long): String? {
-            return DateUtils.formatElapsedTime(total_time - t)
-        }
-        return Observable.interval(1, TimeUnit.SECONDS)
+    fun timer(total_time: Long): Observable<String> {
 
-            .takeWhile { it <= total_time.toLong() }
-            .map { t -> countdownTime(total_time.toLong(), t) }
-    }
+            fun countdownTime(total_time: Long, t: Long): String? {
+                return DateUtils.formatElapsedTime(total_time - t)
+            }
+            return Observable.interval(1, TimeUnit.SECONDS)
+
+                .takeWhile { it <= total_time.toLong() }
+                .map { t -> countdownTime(total_time.toLong(), t) }
+        }
+    
 
 
 //секундомер
